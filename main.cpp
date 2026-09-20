@@ -2,36 +2,51 @@
 #include <string>
 using namespace std;
 
-struct Pipe{
- string name;
- double length;
- int diameter;
- bool inRepair;
+struct Pipe {
+    string name;
+    double length;
+    int diameter;
+    bool inRepair;
 };
 
-struct CompressorStation{
- string name;
- int workshops;
- int workshopsInWork;
- int stationClass;
+struct CompressorStation {
+    string name;
+    int workshops;
+    int workshopsInWork;
+    int stationClass;
 };
 
-void addPipe(Pipe& p){
- cout<<"Название трубы: ";
- cin>>p.name;
- cout<<"Длина трубы (км): ";
- cin>>p.length;
- cout<<"Диаметр трубы (мм): ";
- cin>>p.diameter;
- cout<<"Труба в ремонте? (1-да, 0-нет): ";
- cin>>p.inRepair;
+void addPipe(Pipe& p) {
+    cout << "Название: ";
+    cin >> p.name;
+    cout << "Длина: ";
+    cin >> p.length;
+    cout << "Диаметр: ";
+    cin >> p.diameter;
+    cout << "В ремонте (1/0): ";
+    cin >> p.inRepair;
 }
 
-int main(){
- Pipe pipe;
+void addCS(CompressorStation& cs) {
+    cout << "Название: ";
+    cin >> cs.name;
+    cout << "Количество цехов: ";
+    cin >> cs.workshops;
+    cout << "Цехов в работе: ";
+    cin >> cs.workshopsInWork;
+    cout << "Класс: ";
+    cin >> cs.stationClass;
+}
 
- cout<<"Программа для работы с трубой и КС"<<endl;
- addPipe(pipe);
+int main() {
+    Pipe pipe;
+    CompressorStation cs;
 
- return 0;
+    cout << "Труба:" << endl;
+    addPipe(pipe);
+
+    cout << "КС:" << endl;
+    addCS(cs);
+
+    return 0;
 }
