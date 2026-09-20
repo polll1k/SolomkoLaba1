@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 struct Pipe {
@@ -73,21 +74,19 @@ void editCS(CompressorStation& cs) {
     if (n == 1) {
         if (cs.workshopsInWork < cs.workshops) {
             cs.workshopsInWork++;
-            cout << "Цех запущен" << endl;
-        }
-        else {
-            cout << "Все цеха уже работают" << endl;
         }
     }
     else if (n == 2) {
         if (cs.workshopsInWork > 0) {
             cs.workshopsInWork--;
-            cout << "Цех остановлен" << endl;
-        }
-        else {
-            cout << "Нет работающих цехов" << endl;
         }
     }
+}
+
+void save(Pipe& p, CompressorStation& cs) {
+    ofstream fout("data.txt");
+    fout << p.name << " " << p.length << " " << p.diameter << " " << p.inRepair << endl;
+    fout << cs.name << " " << cs.workshops << " " << cs.workshopsInWork << " " << cs.stationClass << endl;
 }
 
 int main() {
@@ -110,7 +109,6 @@ int main() {
         if (choice == 0) {
             break;
         }
-
         if (choice == 1) {
             addPipe(pipe);
         }
@@ -127,8 +125,8 @@ int main() {
         else if (choice == 5) {
             editCS(cs);
         }
-        else {
-            cout << "Этот пункт пока не сделан" << endl;
+        else if (choice == 6) {
+            save(pipe, cs);
         }
     }
 
