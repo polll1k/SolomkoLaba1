@@ -110,7 +110,13 @@ int main() {
         cout << "6. Сохранить" << endl;
         cout << "7. Загрузить" << endl;
         cout << "0. Выход" << endl;
+
         cin >> choice;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(100, '\n');
+        }
 
         if (choice == 0) {
             break;
