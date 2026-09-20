@@ -18,14 +18,36 @@ struct CompressorStation {
 };
 
 void addPipe(Pipe& p) {
+    int repair;
+
     cout << "Название: ";
     cin >> p.name;
     cout << "Длина: ";
     cin >> p.length;
+    while (cin.fail() || p.length <= 0) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите длину еще раз: ";
+        cin >> p.length;
+    }
     cout << "Диаметр: ";
     cin >> p.diameter;
+    while (cin.fail() || p.diameter <= 0) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите диаметр еще раз: ";
+        cin >> p.diameter;
+    }
     cout << "В ремонте (1/0): ";
-    cin >> p.inRepair;
+    cin >> repair;
+    while (cin.fail() || (repair != 0 && repair != 1)) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите 1 или 0: ";
+        cin >> repair;
+    }
+
+    p.inRepair = repair;
 }
 
 void addCS(CompressorStation& cs) {
@@ -33,10 +55,28 @@ void addCS(CompressorStation& cs) {
     cin >> cs.name;
     cout << "Количество цехов: ";
     cin >> cs.workshops;
+    while (cin.fail() || cs.workshops <= 0) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите количество цехов еще раз: ";
+        cin >> cs.workshops;
+    }
     cout << "Цехов в работе: ";
     cin >> cs.workshopsInWork;
+    while (cin.fail() || cs.workshopsInWork < 0 || cs.workshopsInWork > cs.workshops) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите количество работающих цехов еще раз: ";
+        cin >> cs.workshopsInWork;
+    }
     cout << "Класс: ";
     cin >> cs.stationClass;
+    while (cin.fail() || cs.stationClass <= 0) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите класс еще раз: ";
+        cin >> cs.stationClass;
+    }
 }
 
 void printPipe(Pipe& p) {
@@ -70,6 +110,12 @@ void editCS(CompressorStation& cs) {
     cout << "1. Запустить цех" << endl;
     cout << "2. Остановить цех" << endl;
     cin >> n;
+    while (cin.fail() || (n != 1 && n != 2)) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите 1 или 2: ";
+        cin >> n;
+    }
 
     if (n == 1) {
         if (cs.workshopsInWork < cs.workshops) {
@@ -113,9 +159,11 @@ int main() {
 
         cin >> choice;
 
-        if (cin.fail()) {
+        while (cin.fail() || choice < 0 || choice > 7) {
             cin.clear();
             cin.ignore(100, '\n');
+            cout << "Введите пункт меню еще раз: ";
+            cin >> choice;
         }
 
         if (choice == 0) {
