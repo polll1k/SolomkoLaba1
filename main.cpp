@@ -55,13 +55,38 @@ void printCS(CompressorStation& cs) {
 int main() {
     Pipe pipe;
     CompressorStation cs;
+    int choice;
 
-    addPipe(pipe);
-    addCS(cs);
+    while (true) {
+        cout << endl;
+        cout << "1. Добавить трубу" << endl;
+        cout << "2. Добавить КС" << endl;
+        cout << "3. Просмотр объектов" << endl;
+        cout << "4. Редактировать трубу" << endl;
+        cout << "5. Редактировать КС" << endl;
+        cout << "6. Сохранить" << endl;
+        cout << "7. Загрузить" << endl;
+        cout << "0. Выход" << endl;
+        cin >> choice;
 
-    cout << endl;
-    printPipe(pipe);
-    printCS(cs);
+        if (choice == 0) {
+            break;
+        }
+
+        if (choice == 1) {
+            addPipe(pipe);
+        }
+        else if (choice == 2) {
+            addCS(cs);
+        }
+        else if (choice == 3) {
+            printPipe(pipe);
+            printCS(cs);
+        }
+        else {
+            cout << "Этот пункт пока не сделан" << endl;
+        }
+    }
 
     return 0;
 }
