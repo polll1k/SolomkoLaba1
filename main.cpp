@@ -89,6 +89,12 @@ void save(Pipe& p, CompressorStation& cs) {
     fout << cs.name << " " << cs.workshops << " " << cs.workshopsInWork << " " << cs.stationClass << endl;
 }
 
+void load(Pipe& p, CompressorStation& cs) {
+    ifstream fin("data.txt");
+    fin >> p.name >> p.length >> p.diameter >> p.inRepair;
+    fin >> cs.name >> cs.workshops >> cs.workshopsInWork >> cs.stationClass;
+}
+
 int main() {
     Pipe pipe;
     CompressorStation cs;
@@ -127,6 +133,9 @@ int main() {
         }
         else if (choice == 6) {
             save(pipe, cs);
+        }
+        else if (choice == 7) {
+            load(pipe, cs);
         }
     }
 
