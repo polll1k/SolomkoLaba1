@@ -63,6 +63,33 @@ void editPipe(Pipe& p) {
     }
 }
 
+void editCS(CompressorStation& cs) {
+    int n;
+
+    cout << "1. Запустить цех" << endl;
+    cout << "2. Остановить цех" << endl;
+    cin >> n;
+
+    if (n == 1) {
+        if (cs.workshopsInWork < cs.workshops) {
+            cs.workshopsInWork++;
+            cout << "Цех запущен" << endl;
+        }
+        else {
+            cout << "Все цеха уже работают" << endl;
+        }
+    }
+    else if (n == 2) {
+        if (cs.workshopsInWork > 0) {
+            cs.workshopsInWork--;
+            cout << "Цех остановлен" << endl;
+        }
+        else {
+            cout << "Нет работающих цехов" << endl;
+        }
+    }
+}
+
 int main() {
     Pipe pipe;
     CompressorStation cs;
@@ -96,6 +123,9 @@ int main() {
         }
         else if (choice == 4) {
             editPipe(pipe);
+        }
+        else if (choice == 5) {
+            editCS(cs);
         }
         else {
             cout << "Этот пункт пока не сделан" << endl;
