@@ -9,6 +9,13 @@ struct Pipe{
     bool inRepair;
 };
 
+struct CompressorStation{
+    string name;
+    int workshops;
+    int workshopsInWork;
+    int stationClass;
+};
+
 int main(){
     cout<<"Программа для работы с трубой и КС"<<endl;
     return 0;
