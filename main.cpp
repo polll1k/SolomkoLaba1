@@ -52,6 +52,17 @@ void printCS(CompressorStation& cs) {
     cout << "Класс: " << cs.stationClass << endl;
 }
 
+void editPipe(Pipe& p) {
+    if (p.inRepair == true) {
+        p.inRepair = false;
+        cout << "Труба снята с ремонта" << endl;
+    }
+    else {
+        p.inRepair = true;
+        cout << "Труба отправлена в ремонт" << endl;
+    }
+}
+
 int main() {
     Pipe pipe;
     CompressorStation cs;
@@ -82,6 +93,9 @@ int main() {
         else if (choice == 3) {
             printPipe(pipe);
             printCS(cs);
+        }
+        else if (choice == 4) {
+            editPipe(pipe);
         }
         else {
             cout << "Этот пункт пока не сделан" << endl;
