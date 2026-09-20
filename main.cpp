@@ -94,14 +94,19 @@ void printCS(CompressorStation& cs) {
 }
 
 void editPipe(Pipe& p) {
-    if (p.inRepair == true) {
-        p.inRepair = false;
-        cout << "Труба снята с ремонта" << endl;
+    int repair;
+
+    cout << "В ремонте (1/0): ";
+    cin >> repair;
+
+    while (cin.fail() || (repair != 0 && repair != 1)) {
+        cin.clear();
+        cin.ignore(100, '\n');
+        cout << "Введите 1 или 0: ";
+        cin >> repair;
     }
-    else {
-        p.inRepair = true;
-        cout << "Труба отправлена в ремонт" << endl;
-    }
+
+    p.inRepair = repair;
 }
 
 void editCS(CompressorStation& cs) {
@@ -121,29 +126,50 @@ void editCS(CompressorStation& cs) {
         if (cs.workshopsInWork < cs.workshops) {
             cs.workshopsInWork++;
         }
+        else {
+            cout << "Все цеха уже работают" << endl;
+        }
     }
-    else if (n == 2) {
+    else {
         if (cs.workshopsInWork > 0) {
             cs.workshopsInWork--;
+        }
+        else {
+            cout << "Нет работающих цехов" << endl;
         }
     }
 }
 
 void save(Pipe& p, CompressorStation& cs) {
-    ofstream fout("data.txt");
+    ofstream fout("infa.txt");
+    if (!fout) {
+        cout << "Ошибка файла" << endl;
+        return;
+    }
     fout << p.name << " " << p.length << " " << p.diameter << " " << p.inRepair << endl;
     fout << cs.name << " " << cs.workshops << " " << cs.workshopsInWork << " " << cs.stationClass << endl;
 }
 
-void load(Pipe& p, CompressorStation& cs) {
-    ifstream fin("data.txt");
+bool load(Pipe& p, CompressorStation& cs) {
+    ifstream fin("infa.txt");
+    if (!fin) {
+        cout << "Файл не найден" << endl;
+        return false;
+    }
     fin >> p.name >> p.length >> p.diameter >> p.inRepair;
     fin >> cs.name >> cs.workshops >> cs.workshopsInWork >> cs.stationClass;
+    if (fin.fail()) {
+        cout << "Ошибка чтения файла" << endl;
+        return false;
+    }
+    return true;
 }
 
 int main() {
     Pipe pipe;
     CompressorStation cs;
+    bool pipeAdded = false;
+    bool csAdded = false;
     int choice;
 
     while (true) {
@@ -171,25 +197,41 @@ int main() {
         }
         if (choice == 1) {
             addPipe(pipe);
+            pipeAdded = true;
         }
         else if (choice == 2) {
             addCS(cs);
+            csAdded = true;
         }
         else if (choice == 3) {
-            printPipe(pipe);
-            printCS(cs);
+            if (pipeAdded) {
+                printPipe(pipe);
+            }
+
+            if (csAdded) {
+                printCS(cs);
+            }
         }
         else if (choice == 4) {
-            editPipe(pipe);
+            if (pipeAdded) {
+                editPipe(pipe);
+            }
         }
         else if (choice == 5) {
-            editCS(cs);
+            if (csAdded) {
+                editCS(cs);
+            }
         }
         else if (choice == 6) {
-            save(pipe, cs);
+            if (pipeAdded && csAdded) {
+                save(pipe, cs);
+            }
         }
         else if (choice == 7) {
-            load(pipe, cs);
+            if (load(pipe, cs)) {
+                pipeAdded = true;
+                csAdded = true;
+            }
         }
     }
 
