@@ -38,15 +38,30 @@ void addCS(CompressorStation& cs) {
     cin >> cs.stationClass;
 }
 
+void printPipe(Pipe& p) {
+    cout << "Труба " << p.name << endl;
+    cout << "Длина: " << p.length << endl;
+    cout << "Диаметр: " << p.diameter << endl;
+    cout << "Ремонт: " << p.inRepair << endl;
+}
+
+void printCS(CompressorStation& cs) {
+    cout << "КС " << cs.name << endl;
+    cout << "Цехов: " << cs.workshops << endl;
+    cout << "Работает: " << cs.workshopsInWork << endl;
+    cout << "Класс: " << cs.stationClass << endl;
+}
+
 int main() {
     Pipe pipe;
     CompressorStation cs;
 
-    cout << "Труба:" << endl;
     addPipe(pipe);
-
-    cout << "КС:" << endl;
     addCS(cs);
+
+    cout << endl;
+    printPipe(pipe);
+    printCS(cs);
 
     return 0;
 }
