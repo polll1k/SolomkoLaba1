@@ -21,7 +21,7 @@ void addPipe(Pipe& p) {
     int repair;
 
     cout << "Название: ";
-    cin >> p.name;
+    getline(cin >> ws, p.name);
     cout << "Длина: ";
     cin >> p.length;
     while (cin.fail() || p.length <= 0) {
@@ -52,7 +52,7 @@ void addPipe(Pipe& p) {
 
 void addCS(CompressorStation& cs) {
     cout << "Название: ";
-    cin >> cs.name;
+    getline(cin >> ws, cs.name);
     cout << "Количество цехов: ";
     cin >> cs.workshops;
     while (cin.fail() || cs.workshops <= 0) {
